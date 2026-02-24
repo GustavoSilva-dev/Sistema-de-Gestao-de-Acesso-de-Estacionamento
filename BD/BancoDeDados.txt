@@ -1,0 +1,103 @@
+CREATE DATABASE ESTACIONAMENTO;
+USE ESTACIONAMENTO;
+
+CREATE TABLE VISITANTE (
+    cli_nome VARCHAR(55) NOT NULL, 
+    cli_cpf BIGINT NOT NULL, 
+    cli_empresa VARCHAR(55) NOT NULL,
+    cli_motivo VARCHAR(1000) NOT NULL,
+    cli_colaborador VARCHAR(55) NOT NULL,
+    cli_entradaD VARCHAR(16) NOT NULL,
+    cli_entradaH VARCHAR(16) NOT NULL,
+    cli_saidaD VARCHAR(16) NOT NULL,
+    cli_saidaH VARCHAR(16) NOT NULL,
+    cli_foto VARCHAR(1000) NOT NULL,
+    cli_placa VARCHAR(16) NOT NULL,
+    PRIMARY KEY (cli_cpf)
+);
+
+CREATE TABLE VEICULO (
+    vei_placa VARCHAR(16) NOT NULL,
+    vei_modelo VARCHAR(55) NOT NULL,
+    vei_cpf BIGINT NOT NULL,
+    vei_cor VARCHAR(55) NOT NULL,
+    vei_vaga VARCHAR(55) NOT NULL,
+    PRIMARY KEY (vei_placa),
+    FOREIGN KEY (vei_cpf) REFERENCES VISITANTE(cli_cpf)  -- Liga ao CPF do visitante
+);
+
+ALTER TABLE VISITANTE
+ADD CONSTRAINT fk_placa
+FOREIGN KEY (cli_placa)
+REFERENCES VEICULO(vei_placa);
+
+INSERT INTO VISITANTE VALUES
+('Gustavo', 55555555555, 'Aorus', 'Descarga de eletrônicos', 'GIGABYTE Brasil', '12/11/2025', '07:15', '12/11/2025', '16:30', 'caminho/para/imagem_gustavo.jpg', 'BRA2E19'),
+('Thiago', 33333333333, 'Corsair', 'Reunião técnica', 'GIGABYTE Brasil', '12/11/2025', '08:00', '12/11/2025', '17:00', 'caminho/para/imagem_thiago.jpg', 'TEW89D0');
+
+INSERT INTO VEICULO VALUES
+('BRA2E19', 'Toyota Corolla', 55555555555, 'Preto', 'Visitante'),
+('TEW89D0', 'Nissan Versa', 33333333333, 'Vermelho', 'Visitante');
+
+SELECT 
+    v.cli_nome AS Nome,
+    v.cli_empresa AS Empresa,
+    v.cli_colaborador AS Colaborador,
+    v.cli_placa AS Placa,
+    ve.vei_modelo AS Modelo,
+    ve.vei_cor AS Cor
+FROM VISITANTE v
+JOIN VEICULO ve ON v.cli_placa = ve.vei_placa;
+
+Thiago Paes Moreira, 16 min
+CREATE DATABASE ESTACIONAMENTO;
+USE ESTACIONAMENTO;
+CREATE TABLE VISITANTE (
+    cli_nome VARCHAR(55) NOT NULL, 
+    cli_cpf BIGINT NOT NULL, 
+    cli_empresa VARCHAR(55) NOT NULL,
+    cli_motivo VARCHAR(1000) NOT NULL,
+    cli_colaborador VARCHAR(55) NOT NULL,
+    cli_entradaD DATE DEFAULT (CURRENT_DATE),
+    cli_entradaH TIME DEFAULT (CURRENT_TIME),
+    cli_saidaD DATE NULL,
+    cli_saidaH TIME NULL,
+    cli_foto VARCHAR(1000) NOT NULL,
+    cli_placa VARCHAR(16) NOT NULL,
+    PRIMARY KEY (cli_cpf)
+);
+
+CREATE TABLE VEICULO (
+    vei_placa VARCHAR(16) NOT NULL,
+    vei_modelo VARCHAR(55) NOT NULL,
+    vei_cpf BIGINT NOT NULL,
+    vei_cor VARCHAR(55) NOT NULL,
+    vei_vaga VARCHAR(55) NOT NULL,
+    PRIMARY KEY (vei_placa),
+    FOREIGN KEY (vei_cpf) REFERENCES VISITANTE(cli_cpf)
+);
+
+ALTER TABLE VISITANTE
+ADD CONSTRAINT fk_placa
+FOREIGN KEY (cli_placa)
+REFERENCES VEICULO(vei_placa);
+
+INSERT INTO VISITANTE VALUES
+('Gustavo', 55555555555, 'Aorus', 'Descarga de eletrônicos', 'GIGABYTE Brasil', '12/11/2025', '07:15', '12/11/2025', '16:30', 'caminho/para/imagem_gustavo.jpg', 'BRA2E19'),
+('Thiago', 33333333333, 'Corsair', 'Reunião técnica', 'GIGABYTE Brasil', '12/11/2025', '08:00', '12/11/2025', '17:00', 'caminho/para/imagem_thiago.jpg', 'TEW89D0');
+
+INSERT INTO VEICULO VALUES
+('BRA2E19', 'Toyota Corolla', 55555555555, 'Preto', 'Visitante'),
+('TEW89D0', 'Nissan Versa', 33333333333, 'Vermelho', 'Visitante');
+
+SELECT 
+    v.cli_nome AS Nome,
+    v.cli_empresa AS Empresa,
+    v.cli_colaborador AS Colaborador,
+    v.cli_entradaD AS DataEntrada,
+    v.cli_entradaH AS HoraEntrada,
+    v.cli_placa AS Placa,
+    ve.vei_modelo AS Modelo,
+    ve.vei_cor AS Cor
+FROM VISITANTE v
+JOIN VEICULO ve ON v.cli_placa = ve.vei_placa;
