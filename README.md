@@ -1,6 +1,6 @@
 # 🚗 Sistema de Gestão de Acesso de Estacionamento
 
-Sistema de Gestão de Estacionamento feito em Java Swing, aplicando conceitos práticos de banco de dados relacional com MySQL.
+Sistema de Gestão de Estacionamento feito em Java Swing, feito para uma empresa fictícia (Tech Solutions S.A.), aplicando conceitos práticos de banco de dados relacional com MySQL.
 
 ## 🔨 Tecnologias e Ferramentas Utilizadas
 
