@@ -1,0 +1,6 @@
+*.java linguist-detectable=true
+
+*.form linguist-documentation
+*.xml linguist-documentation
+*.project linguist-documentation
+*.classpath linguist-documentation
